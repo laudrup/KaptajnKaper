@@ -617,7 +617,7 @@ void StateMenu::NormalButton(int iKey) {
         return;
       }
 
-      if (m_sWebCode.length() <= (m_iWebCodePos + 1)) {
+      if (static_cast<int>(m_sWebCode.length()) <= (m_iWebCodePos + 1)) {
         m_sWebCode += "1";
       }
       m_iWebCodePos++;
@@ -776,76 +776,76 @@ void StateMenu::LoadScore() {
 char StateMenu::SwitchChar(char cChar, bool bUp) {
   //------------------------------------------------------
   if (bUp) {
-    if (L'0' == cChar) {
-      cChar = L'1';
-    } else if (L'1' == cChar) {
-      cChar = L'2';
-    } else if (L'2' == cChar) {
-      cChar = L'3';
-    } else if (L'3' == cChar) {
-      cChar = L'4';
-    } else if (L'4' == cChar) {
-      cChar = L'5';
-    } else if (L'5' == cChar) {
-      cChar = L'6';
-    } else if (L'6' == cChar) {
-      cChar = L'7';
-    } else if (L'7' == cChar) {
-      cChar = L'8';
-    } else if (L'8' == cChar) {
-      cChar = L'9';
-    } else if (L'9' == cChar) {
-      cChar = L'a';
-    } else if (L'a' == cChar) {
-      cChar = L'b';
-    } else if (L'b' == cChar) {
-      cChar = L'c';
-    } else if (L'c' == cChar) {
-      cChar = L'd';
-    } else if (L'd' == cChar) {
-      cChar = L'e';
-    } else if (L'e' == cChar) {
-      cChar = L'f';
-    } else if (L'f' == cChar) {
-      cChar = L' ';
-    } else if (L' ' == cChar) {
-      cChar = L'0';
+    if ('0' == cChar) {
+      cChar = '1';
+    } else if ('1' == cChar) {
+      cChar = '2';
+    } else if ('2' == cChar) {
+      cChar = '3';
+    } else if ('3' == cChar) {
+      cChar = '4';
+    } else if ('4' == cChar) {
+      cChar = '5';
+    } else if ('5' == cChar) {
+      cChar = '6';
+    } else if ('6' == cChar) {
+      cChar = '7';
+    } else if ('7' == cChar) {
+      cChar = '8';
+    } else if ('8' == cChar) {
+      cChar = '9';
+    } else if ('9' == cChar) {
+      cChar = 'a';
+    } else if ('a' == cChar) {
+      cChar = 'b';
+    } else if ('b' == cChar) {
+      cChar = 'c';
+    } else if ('c' == cChar) {
+      cChar = 'd';
+    } else if ('d' == cChar) {
+      cChar = 'e';
+    } else if ('e' == cChar) {
+      cChar = 'f';
+    } else if ('f' == cChar) {
+      cChar = ' ';
+    } else if (' ' == cChar) {
+      cChar = '0';
     }
   } else {
-    if (L'0' == cChar) {
-      cChar = L' ';
-    } else if (L'1' == cChar) {
-      cChar = L'0';
-    } else if (L'2' == cChar) {
-      cChar = L'1';
-    } else if (L'3' == cChar) {
-      cChar = L'2';
-    } else if (L'4' == cChar) {
-      cChar = L'3';
-    } else if (L'5' == cChar) {
-      cChar = L'4';
-    } else if (L'6' == cChar) {
-      cChar = L'5';
-    } else if (L'7' == cChar) {
-      cChar = L'6';
-    } else if (L'8' == cChar) {
-      cChar = L'7';
-    } else if (L'9' == cChar) {
-      cChar = L'8';
-    } else if (L'a' == cChar) {
-      cChar = L'9';
-    } else if (L'b' == cChar) {
-      cChar = L'a';
-    } else if (L'c' == cChar) {
-      cChar = L'b';
-    } else if (L'd' == cChar) {
-      cChar = L'c';
-    } else if (L'e' == cChar) {
-      cChar = L'd';
-    } else if (L'f' == cChar) {
-      cChar = L'e';
-    } else if (L' ' == cChar) {
-      cChar = L'f';
+    if ('0' == cChar) {
+      cChar = ' ';
+    } else if ('1' == cChar) {
+      cChar = '0';
+    } else if ('2' == cChar) {
+      cChar = '1';
+    } else if ('3' == cChar) {
+      cChar = '2';
+    } else if ('4' == cChar) {
+      cChar = '3';
+    } else if ('5' == cChar) {
+      cChar = '4';
+    } else if ('6' == cChar) {
+      cChar = '5';
+    } else if ('7' == cChar) {
+      cChar = '6';
+    } else if ('8' == cChar) {
+      cChar = '7';
+    } else if ('9' == cChar) {
+      cChar = '8';
+    } else if ('a' == cChar) {
+      cChar = '9';
+    } else if ('b' == cChar) {
+      cChar = 'a';
+    } else if ('c' == cChar) {
+      cChar = 'b';
+    } else if ('d' == cChar) {
+      cChar = 'c';
+    } else if ('e' == cChar) {
+      cChar = 'd';
+    } else if ('f' == cChar) {
+      cChar = 'e';
+    } else if (' ' == cChar) {
+      cChar = 'f';
     }
   }
 
@@ -860,7 +860,7 @@ void SubmitWebScore::run() {
   try {
     std::string sLink = "http://www.mobilkaper.dk/AdLucem.php?SubmitCode=" + m_oFather->m_sWebCode;
 
-    m_Http = static_cast<HttpConnection*>(Connector::open(sLink, Connector::READ, true));
+    m_Http = Connector::open(sLink, Connector::READ, true);
 
     m_Http->setRequestMethod(HttpConnection::GET);
     m_Http->setRequestProperty("Content-Type", "text/plain");

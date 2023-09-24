@@ -15,7 +15,7 @@ void Kaper::pauseApp() {
   }
 }
 
-void Kaper::destroyApp(bool unconditional) {
+void Kaper::destroyApp(bool /*unconditional*/) {
   m_bPaused = true;
 
   if (m_oKaperCanvas != nullptr) {
@@ -48,10 +48,10 @@ void Kaper::startApp() {
   }
 }
 
-void Kaper::commandAction(Command* c, Displayable* s) {
+void Kaper::commandAction(Command*, Displayable*) {
 }
 
-int main(int argc, const char* const argv[]) {
+int main(int /*argc*/, const char* const /*argv*/[]) {
   Kaper kaper;
   kaper.startApp();
 }

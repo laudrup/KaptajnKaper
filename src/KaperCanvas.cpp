@@ -330,7 +330,7 @@ void KaperCanvas::SoftButtonSND(bool bState) {
   }
 }
 
-void KaperCanvas::PlaySound(const std::string& sName, bool bRepeat) {
+void KaperCanvas::PlaySound(const std::string& /*sName*/, bool /*bRepeat*/) {
   /*
         try
         {
@@ -507,25 +507,25 @@ void KaperCanvas::DrawString(std::string str, int x, int y, bool bBold, int iCol
 
     y += 5;
 
-    for (int i = 0; i < sText.length(); i++) {
+    for (int i = 0; i < static_cast<int>(sText.length()); i++) {
       iYoffset = 0;
 
-      if (sText[i] >= L'0' && sText[i] <= L':') {
-        iXoffset = (sText[i] - L'0') * 5;
-      } else if (sText[i] >= L'A' && sText[i] <= L'H') {
-        iXoffset = (sText[i] - L'A') * 5 + 55;
-      } else if (sText[i] >= L'I' && sText[i] <= L'Z') {
-        iXoffset = (sText[i] - L'I') * 5;
+      if (sText[i] >= '0' && sText[i] <= ':') {
+        iXoffset = (sText[i] - '0') * 5;
+      } else if (sText[i] >= 'A' && sText[i] <= 'H') {
+        iXoffset = (sText[i] - 'A') * 5 + 55;
+      } else if (sText[i] >= 'I' && sText[i] <= 'Z') {
+        iXoffset = (sText[i] - 'I') * 5;
         iYoffset = 7;
-      } else if (sText[i] == L'.') {
+      } else if (sText[i] == '.') {
         bDraw = true;
-      } else if (sText[i] == L'[') {
+      } else if (sText[i] == '[') {
         bDraw = true;
-      } else if (sText[i] == L']') {
+      } else if (sText[i] == ']') {
         bDraw = true;
-      } else if (sText[i] == L'<') {
+      } else if (sText[i] == '<') {
         bDraw = true;
-      } else if (sText[i] == L'>') {
+      } else if (sText[i] == '>') {
         bDraw = true;
       } else {
         continue;
@@ -553,20 +553,20 @@ void KaperCanvas::DrawString(std::string str, int x, int y, bool bBold, int iCol
         }
         m_oFrontBuffer->setClip(0, 0, m_iWidth, m_iHeight);
 
-        if (sText[i] == L'.') {
+        if (sText[i] == '.') {
           m_oFrontBuffer->drawLine(x + 1 + (i * 5), y + 5, x + (i * 5) + 2, y + 5);
           m_oFrontBuffer->drawLine(x + 1 + (i * 5), y + 6, x + (i * 5) + 2, y + 6);
-        } else if (sText[i] == L'>') {
+        } else if (sText[i] == '>') {
           m_oFrontBuffer->drawLine(x + (i * 5), y, x + (i * 5) + 4, y + 3);
           m_oFrontBuffer->drawLine(x + (i * 5), y + 6, x + (i * 5) + 4, y + 3);
-        } else if (sText[i] == L'<') {
+        } else if (sText[i] == '<') {
           m_oFrontBuffer->drawLine(x + (i * 5), y + 3, x + (i * 5) + 4, y);
           m_oFrontBuffer->drawLine(x + (i * 5), y + 3, x + (i * 5) + 4, y + 6);
-        } else if (sText[i] == L'[') {
+        } else if (sText[i] == '[') {
           m_oFrontBuffer->drawLine(x + 1 + (i * 5), y, 1 + x + (i * 5), y + 6);
           m_oFrontBuffer->drawLine(x + 1 + (i * 5), y, x + (i * 5) + 3, y);
           m_oFrontBuffer->drawLine(x + 1 + (i * 5), y + 6, x + (i * 5) + 3, y + 6);
-        } else if (sText[i] == L']') {
+        } else if (sText[i] == ']') {
           m_oFrontBuffer->drawLine(x + 3 + (i * 5), y, x + 3 + (i * 5), y + 6);
           m_oFrontBuffer->drawLine(x + 3 + (i * 5), y, x + 1 + (i * 5), y);
           m_oFrontBuffer->drawLine(x + 3 + (i * 5), y + 6, x + 1 + (i * 5), y + 6);
@@ -624,12 +624,12 @@ void KaperCanvas::DrawString(int iNumbers, int x, int y, bool bBold, int iColor)
     for (int i = 0; i < 4; i++) {
       iYoffset = 0;
 
-      if (m_stringBuffer->length() <= i) {
+      if (static_cast<int>(m_stringBuffer->length()) <= i) {
         break;
       }
 
-      if (m_stringChars[i] >= L'0' && m_stringChars[i] <= L'9') {
-        iXoffset = (m_stringChars[i] - L'0') * 5;
+      if (m_stringChars[i] >= '0' && m_stringChars[i] <= '9') {
+        iXoffset = (m_stringChars[i] - '0') * 5;
       } else {
         continue;
       }

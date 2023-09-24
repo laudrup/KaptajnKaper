@@ -11,10 +11,14 @@ include(cmake/Sanitizers.cmake)
 add_library(project_options INTERFACE)
 add_library(project_warnings INTERFACE)
 
-target_compile_features(project_options INTERFACE cxx_std_17)
+target_compile_features(project_options INTERFACE
+  cxx_std_17
+)
 
 if(WIN32)
-  target_compile_definitions(project_options INTERFACE _CRT_SECURE_NO_WARNINGS)
+  target_compile_definitions(project_options INTERFACE
+    _CRT_SECURE_NO_WARNINGS
+  )
 endif()
 
 set_project_warnings(project_warnings)
@@ -34,3 +38,9 @@ add_executable(kaper
 target_include_directories(kaper PRIVATE
   src/
 )
+
+target_link_libraries(kaper PRIVATE
+  project_options
+  project_warnings
+)
+

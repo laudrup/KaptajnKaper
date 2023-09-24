@@ -64,7 +64,7 @@ StateGame::StateGame(KaperCanvas* oKaperCanvas) {
   m_iEnemyShipShipType = std::vector<int>(10);
   m_iEnemyShipCannons = std::vector<int>(10);
   m_iEnemyShipSoldiers = std::vector<int>(10);
-  m_iEnemyShipGraphicWay = std::vector<char>(10);
+  m_iEnemyShipGraphicWay = std::vector<short>(10);
 
   m_iEnemyShipWaveA = std::vector<std::vector<int>>(10, std::vector<int>(3));
   m_iEnemyShipWaveX = std::vector<std::vector<int>>(10, std::vector<int>(3));
@@ -2800,7 +2800,7 @@ void StateGame::NormalButton(int iKey) {
         return;
       }
 
-      if (m_sPlayerName.length() <= (m_iPlayerNamePos + 1)) {
+      if (static_cast<int>(m_sPlayerName.length()) <= (m_iPlayerNamePos + 1)) {
         m_sPlayerName += "a";
       }
       m_iPlayerNamePos++;
@@ -4108,7 +4108,7 @@ void RegisterHighscore::Deinit() {
 
 void RegisterHighscore::run() {
   try {
-    HttpConnection* m_Http = static_cast<HttpConnection*>(Connector::open(sLink, Connector::READ, true));
+    m_Http = Connector::open(sLink, Connector::READ, true);
     m_Http->setRequestMethod(HttpConnection::GET);
     m_Http->setRequestProperty("Content-Type", "text/plain");
     m_Http->setRequestProperty("Connection", "close");

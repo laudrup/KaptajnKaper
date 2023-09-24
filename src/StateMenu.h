@@ -37,7 +37,7 @@ private:
   std::vector<std::string> m_sHighScore;
   KaperCanvas* m_oCanvas;
   int m_iKeyOldState = 0;
-  char m_cLineInstructions = L'\0';
+  char m_cLineInstructions = '\0';
   bool m_bShowInstructions = false;
   bool m_bShowHighscore = false;
   bool m_bShowWebHighscore = false;

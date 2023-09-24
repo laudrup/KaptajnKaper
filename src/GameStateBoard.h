@@ -110,5 +110,5 @@ private:
   int m_iAIFlee = 0;
 
   bool m_bLocked = false;
-  char m_iNumberOfMenToCreate = L'\0';
+  char m_iNumberOfMenToCreate = '\0';
 };

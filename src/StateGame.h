@@ -41,7 +41,7 @@ public:
   std::vector<int> m_iEnemyShipCannons;
   std::vector<int> m_iEnemyShipSoldiers;
 
-  std::vector<char> m_iEnemyShipGraphicWay;
+  std::vector<short> m_iEnemyShipGraphicWay;
 
   std::vector<std::vector<int>> m_iEnemyShipWaveA;
   std::vector<std::vector<int>> m_iEnemyShipWaveX;
@@ -207,7 +207,7 @@ public:
   HttpConnection* m_Http = nullptr;
   StringBuilder* m_sBuf = new StringBuilder();
   std::string sLink;
-  char m_cWebDataReady = L'\0';
+  char m_cWebDataReady = '\0';
 
   std::vector<std::string> m_sWebHighAllPlayers;
   std::vector<std::string> m_sWebHighAllScore;
