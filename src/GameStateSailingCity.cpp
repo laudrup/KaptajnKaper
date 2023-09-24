@@ -56,8 +56,8 @@ void CGameStateSailingCity::Draw(Graphics* g) {
 
   g->setClip(0, 0, m_oCanvas->m_iWidth, m_oCanvas->m_iHeight);
 
-  Image* oImgWater = Image::createImage(9, 9);
-  oImgWater->getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -90, -40, Graphics::TOP | Graphics::LEFT);
+  Image oImgWater = Image::createImage(9, 9);
+  oImgWater.getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -90, -40, Graphics::TOP | Graphics::LEFT);
 
   if (m_bPaused || m_iStatus == 6) {
     if (m_iStatus == 6) {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Image.h"
 #include "StateMenu.h"
 #include "StateGame.h"
 
@@ -10,7 +11,6 @@
 #include <vector>
 
 class Random;
-class Image;
 class Font;
 class Player;
 class Graphics;
@@ -20,7 +20,7 @@ class StateMenu;
 
 class KaperCanvas {
 public:
-  KaperCanvas();
+  KaperCanvas(sf::View& view);
   void paint(Graphics* oFrontBuffer);
   void Init(int cGameMode);
   void run();
@@ -43,11 +43,11 @@ public:
   }
 
   int getWidth() {
-    return 640;
+    return static_cast<int>(view_.getSize().x);
   }
 
   int getHeight() {
-    return 480;
+    return static_cast<int>(view_.getSize().y);
   }
 
   void keyPressed(int keyCode);
@@ -62,7 +62,7 @@ public:
   int m_iHeight = 0;
   Random* m_oRand;
 
-  std::vector<Image*> m_oImageArray;
+  std::vector<Image> m_oImageArray;
 
   StateMenu* m_oStateMenu;
   StateGame* m_oStateGame;
@@ -84,4 +84,6 @@ private:
   Graphics* m_oFrontBuffer;
   StringBuilder* m_stringBuffer;
   std::vector<char> m_stringChars;
+
+  sf::View& view_;
 };

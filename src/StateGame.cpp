@@ -1,3 +1,4 @@
+#include "Graphics.h"
 #include "StateGame.h"
 #include "Canvas.h"
 #include "Connector.h"
@@ -107,8 +108,8 @@ StateGame::StateGame(KaperCanvas* oKaperCanvas) {
 
       m_oCanvas->m_oImageArray[5] = Image::createImage("/6.png");
     } else {
-      m_oCanvas->m_oImageArray[2] = nullptr;
-      m_oCanvas->m_oImageArray[5] = nullptr;
+      m_oCanvas->m_oImageArray[2] = Image::createImage(0, 0); // nullptr;
+      m_oCanvas->m_oImageArray[5] = Image::createImage(0, 0); // nullptr;
     }
   } catch (const std::runtime_error& th) {
   }
@@ -449,7 +450,7 @@ int StateGame::MapCheckCollision(int iX, int iY, bool bScreenOffset) {
 }
 
 void StateGame::MapDraw(Graphics* g) {
-  if (m_oCanvas->m_oImageArray[2] != nullptr && m_oCanvas->m_oImageArray[22] != nullptr) {
+  if (m_oCanvas->m_oImageArray[2] && m_oCanvas->m_oImageArray[22]) {
     int iPointx, iPointy;
 
     iPointx = -((m_iMapScreenX * 25) - m_iMapOffScreenX);
@@ -2215,7 +2216,7 @@ void StateGame::Draw(Graphics* g) {
 
     ShipDraw(g);
 
-    if (m_oCanvas->m_oImageArray[5] != nullptr) {
+    if (m_oCanvas->m_oImageArray[5]) {
       for (i = 0; i < 19; i++) {
         if (m_iSkyType[i] == 0) {
           g->setClip(m_iSkyX[i] + iMapXOffset, m_iSkyY[i] + iMapYOffset, 53, 63);
@@ -2551,7 +2552,7 @@ bool StateGame::Update() {
     m_iSkyCounterY--;
 
     for (int i = 0; i < 19; i++) {
-      if (m_oCanvas->m_oImageArray[5] == nullptr) {
+      if (m_oCanvas->m_oImageArray[5]) {
         break;
       }
 

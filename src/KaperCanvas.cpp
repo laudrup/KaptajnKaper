@@ -22,7 +22,8 @@ namespace {
   }
 }
 
-KaperCanvas::KaperCanvas() {
+KaperCanvas::KaperCanvas(sf::View& view)
+  : view_(view) {
   m_bWantToQuit = false;
 
   m_stringBuffer = new StringBuilder("0000");
@@ -199,7 +200,7 @@ void KaperCanvas::paint(Graphics* oFrontBuffer) {
 void KaperCanvas::Init(int cGameMode) {
   switch (cGameMode) {
   case 0: {
-      m_oImageArray = std::vector<Image*>(25);
+      m_oImageArray = std::vector<Image>(25);
       m_oImageArray[1] = Image::createImage("/2.png");
       m_oImageArray[24] = Image::createImage("/8.png");
   } break;
@@ -235,79 +236,79 @@ void KaperCanvas::Init(int cGameMode) {
 }
 
 void KaperCanvas::run() {
-  while (true) {
-    // Thread.yield();
-    try {
-      // delay(1);
-    } catch (const std::runtime_error& e) {
-    }
+  if ((std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
+           .count() -
+       m_lSpeed) >= 60) {
+    m_lSpeed =
+        std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch())
+            .count();
+    repaint();
 
-    if ((std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() - m_lSpeed) >= 60) {
-      m_lSpeed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-      repaint();
-
-      switch (m_cGameMode) {
-      case 0: {
-        if (m_bIntroWaitb == false) {
-          m_lIntroWait = 3500 + std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-          m_oImageArray[0] = Image::createImage("/1.png");
-          Init(1);
-          m_bIntroWaitb = true;
-        } else if ((m_lIntroWait + 1000) < std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count()) {
-          m_cGameMode = 1;
-        }
-      } break;
-
-      case 1: {
-        if (m_oKaperApp->m_bPaused) {
-          break;
-        }
-
-        int iStatus = m_oStateMenu->Update();
-
-        if (iStatus == 0) // Start new fresh game
-        {
-          m_cGameMode = 5;
-          Init(2);
-          m_oStateGame->CleanGame(true);
-          m_cGameMode = 2;
-        }
-
-        if (iStatus == 1) // Continue game
-        {
-          m_cGameMode = 5;
-          Init(2);
-          m_cGameMode = 2;
-          m_oStateGame->LoadGame();
-        }
-
-        if (iStatus == 3) // Start new fresh game with +500g
-        {
-          m_cGameMode = 5;
-          Init(2);
-          m_oStateGame->CleanGame(true);
-          m_cGameMode = 2;
-
-          m_oStateGame->m_iResourceGold += 500;
-        }
-
-      } break;
-
-      case 2: {
-        if (m_oKaperApp->m_bPaused) {
-          break;
-        }
-        if (m_bWantToQuit) {
-          break;
-        }
-
-        if (m_oStateGame->Update() == true) { // End game
-          Init(1);
-          m_cGameMode = 1;
-        }
-
-      } break;
+    switch (m_cGameMode) {
+    case 0: {
+      if (m_bIntroWaitb == false) {
+        m_lIntroWait = 3500 + std::chrono::duration_cast<std::chrono::milliseconds>(
+                                  std::chrono::system_clock::now().time_since_epoch())
+                                  .count();
+        m_oImageArray[0] = Image::createImage("/1.png");
+        Init(1);
+        m_bIntroWaitb = true;
+      } else if ((m_lIntroWait + 1000) < std::chrono::duration_cast<std::chrono::milliseconds>(
+                                             std::chrono::system_clock::now().time_since_epoch())
+                                             .count()) {
+        m_cGameMode = 1;
       }
+    } break;
+
+    case 1: {
+      if (m_oKaperApp->m_bPaused) {
+        break;
+      }
+
+      int iStatus = m_oStateMenu->Update();
+
+      if (iStatus == 0) // Start new fresh game
+      {
+        m_cGameMode = 5;
+        Init(2);
+        m_oStateGame->CleanGame(true);
+        m_cGameMode = 2;
+      }
+
+      if (iStatus == 1) // Continue game
+      {
+        m_cGameMode = 5;
+        Init(2);
+        m_cGameMode = 2;
+        m_oStateGame->LoadGame();
+      }
+
+      if (iStatus == 3) // Start new fresh game with +500g
+      {
+        m_cGameMode = 5;
+        Init(2);
+        m_oStateGame->CleanGame(true);
+        m_cGameMode = 2;
+
+        m_oStateGame->m_iResourceGold += 500;
+      }
+
+    } break;
+
+    case 2: {
+      if (m_oKaperApp->m_bPaused) {
+        break;
+      }
+      if (m_bWantToQuit) {
+        break;
+      }
+
+      if (m_oStateGame->Update() == true) { // End game
+        Init(1);
+        m_cGameMode = 1;
+      }
+
+    } break;
     }
   }
 }
@@ -481,7 +482,7 @@ void KaperCanvas::keyReleased(int keyCode) {
 void KaperCanvas::DrawString(std::string str, int x, int y, bool bBold, int iColor) {
   const auto sText = to_upper(str);
 
-  if (m_bFontBitmap == false || m_oImageArray[24] == nullptr) {
+  if (m_bFontBitmap == false || !m_oImageArray[24]) {
     if (bBold) {
       m_oFrontBuffer->setFont(m_oFontMediumB);
     } else {
@@ -595,7 +596,7 @@ void KaperCanvas::DrawString(int iNumbers, int x, int y, bool bBold, int iColor)
   m_stringBuffer->append(static_cast<int>(iNumbers));
   m_stringBuffer->getChars(0, m_stringBuffer->length(), m_stringChars, 0);
 
-  if (m_bFontBitmap == false || m_oImageArray[24] == nullptr) {
+  if (m_bFontBitmap == false || !m_oImageArray[24]) {
     if (bBold) {
       m_oFrontBuffer->setFont(m_oFontMediumB);
     } else {

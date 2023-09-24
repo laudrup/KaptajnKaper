@@ -765,16 +765,16 @@ void CGameStateBoard::DrawBackGround(Graphics* g) {
   g->setColor(145, 227, 255);
   g->fillRect(0, 0, m_oCanvas->m_iWidth, 40);
 
-  Image* oImgEdge = Image::createImage(20, 20);
-  oImgEdge->getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -130, -20, Graphics::TOP | Graphics::LEFT);
+  Image oImgEdge = Image::createImage(20, 20);
+  oImgEdge.getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -130, -20, Graphics::TOP | Graphics::LEFT);
 
   // Draw ship edge
   for (x = 0; x <= iWidth; x++) {
     g->drawImage(oImgEdge, (x * 20), (1 * 20), Graphics::TOP | Graphics::LEFT);
   }
 
-  Image* oImgPlatform = Image::createImage(20, 20);
-  oImgPlatform->getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -90, 0, Graphics::TOP | Graphics::LEFT);
+  Image oImgPlatform = Image::createImage(20, 20);
+  oImgPlatform.getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -90, 0, Graphics::TOP | Graphics::LEFT);
 
   // Draw ship platform
   for (x = 0; x <= iWidth; x++) {

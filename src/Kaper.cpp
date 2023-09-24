@@ -1,6 +1,10 @@
 #include "Kaper.h"
 #include "Display.h"
-#include "Thread.h"
+#include "Graphics.h"
+#include "Canvas.h"
+
+#include <SFML/Window.hpp>
+
 
 Kaper::Kaper() {
   m_oKaperCanvas = nullptr;
@@ -27,24 +31,36 @@ void Kaper::destroyApp(bool /*unconditional*/) {
 
 void Kaper::startApp() {
   m_bPaused = false;
+  const auto default_mode = sf::VideoMode(sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height / 2);
+  sf::RenderWindow window(default_mode, "MobileKaper");
+  window.setVerticalSyncEnabled(true);
+  sf::View view(sf::FloatRect(0, 0, 200, 300));
+  window.setView(view);
 
-  if (m_oKaperCanvas == nullptr) {
-    Display* m_oDisplay = Display::getDisplay(this);
-    m_oKaperCanvas = new KaperCanvas();
-    m_oKaperCanvas->m_oKaperApp = this;
+  Display* m_oDisplay = Display::getDisplay(this);
+  m_oKaperCanvas = new KaperCanvas(view);
+  m_oKaperCanvas->m_oKaperApp = this;
+  m_oKaperCanvas->setCommandListener(this);
+  m_oDisplay->setCurrent(m_oKaperCanvas);
+  m_oKaperCanvas->Init(0);
+  Graphics g{&window};
 
-    m_oKaperCanvas->Init(0);
-    Thread* runner = new Thread(m_oKaperCanvas);
-    runner->start();
-
-    m_oDisplay->setCurrent(m_oKaperCanvas);
-
-    m_oKaperCanvas->setCommandListener(this);
-
+  while (window.isOpen()) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      switch (event.type) {
+        case sf::Event::Closed:
+          window.close();
+          break;
+        default:
+          break;
+      }
+    }
+    m_oKaperCanvas->run();
+    m_oKaperCanvas->paint(&g);
     m_oKaperCanvas->repaint();
     m_oKaperCanvas->serviceRepaints();
-
-    delete runner;
+    window.display();
   }
 }
 

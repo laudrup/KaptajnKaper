@@ -74,8 +74,8 @@ void StateMenu::Draw(Graphics* g) {
     g->setColor(2, 142, 239);
     g->fillRect(0, 0, m_oCanvas->m_iWidth, m_oCanvas->m_iHeight);
   } else {
-    Image* oImgWater = Image::createImage(25, 25);
-    oImgWater->getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -165, -20, Graphics::TOP | Graphics::LEFT);
+    Image oImgWater = Image::createImage(25, 25);
+    oImgWater.getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -165, -20, Graphics::TOP | Graphics::LEFT);
 
     for (int x = 0; x <= (m_oCanvas->m_iWidth / 25) + 1; x++) {
       for (int y = 0; y <= (m_oCanvas->m_iHeight / 25) + 1; y++) {
@@ -337,7 +337,7 @@ void StateMenu::Draw(Graphics* g) {
     if (45 <= ((m_oCanvas->m_iHeight / 2) + 75 - iScreenMove)) {
       m_oCanvas->DrawString(
           "FONT:", (m_oCanvas->m_iWidth / 2) - 40, (m_oCanvas->m_iHeight / 2) + 75 - iScreenMove, false, 1);
-      if (m_oCanvas->m_bFontBitmap && m_oCanvas->m_oImageArray[24] != nullptr) {
+      if (m_oCanvas->m_bFontBitmap && m_oCanvas->m_oImageArray[24]) {
         m_oCanvas->DrawString(
             "BITMAP", (m_oCanvas->m_iWidth / 2) + 10, (m_oCanvas->m_iHeight / 2) + 75 - iScreenMove, false, 1);
       } else {

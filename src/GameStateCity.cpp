@@ -2,6 +2,7 @@
 #include "Canvas.h"
 #include "Graphics.h"
 #include "Random.h"
+#include "Image.h"
 
 CGameStateCity::CGameStateCity(KaperCanvas* oKaperCanvas) {
   m_bLocked = true;

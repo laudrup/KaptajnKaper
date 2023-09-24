@@ -110,8 +110,8 @@ void CGameStateAttack::Draw(Graphics* g) {
     g->setColor(2, 142, 239);
     g->fillRect(0, 0, m_oCanvas->m_iWidth, m_oCanvas->m_iHeight);
   } else {
-    Image* oImgWater = Image::createImage(25, 25);
-    oImgWater->getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -165, -20, Graphics::TOP | Graphics::LEFT);
+    Image oImgWater = Image::createImage(25, 25);
+    oImgWater.getGraphics()->drawImage(m_oCanvas->m_oImageArray[1], -165, -20, Graphics::TOP | Graphics::LEFT);
 
     for (int x = 0; x <= (m_oCanvas->m_iWidth / 25); x++) {
       for (int y = -1; y <= (m_oCanvas->m_iHeight / 25); y++) {
