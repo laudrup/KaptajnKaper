@@ -590,7 +590,7 @@ void KaperCanvas::DrawString(std::string str, int x, int y, bool bBold, int iCol
 
 void KaperCanvas::DrawString(int iNumbers, int x, int y, bool bBold, int iColor) {
   m_stringBuffer->remove(0, m_stringBuffer->length());
-  m_stringBuffer->append(static_cast<int>(iNumbers));
+  m_stringBuffer->append(iNumbers);
   m_stringBuffer->getChars(0, m_stringBuffer->length(), m_stringChars, 0);
 
   if (m_bFontBitmap == false || !m_oImageArray[24]) {
