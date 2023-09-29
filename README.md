@@ -1,20 +1,27 @@
-# Mobil Kaptajn kaper
-Release date: 2005  
-Programming language: Java (J2ME)  
-Coded by: Tommy Kobberø (http://logicwork.net)  
-Graphics by: Jonas Raagaard (http://jonaz.dk/)  
-		
+# Kaptajn Kaper
+
+Port of MobileKaper from
+[Nosceteipsum/Mobilkaptajnkaper](https://github.com/Nosceteipsum/Mobilkaptajnkaper)
+in C++ using [SFML](https://www.sfml-dev.org/) for handling graphics
+and events.
+
+Currently this is implemented by doing a naive translation of the code
+from Java to C++ and then reimplementing the J2ME specific calls to
+similar SFML functionality while keeping the game logic intact.
+
+Should be mostly playable but definitely has bugs and missing
+functionality. Bug reports and pull requests are very welcome.
+
 # Screenshots
-![Title_Image](http://logicwork.net/images/github/symbian_kk_title.png)  
-![Title_Image](http://logicwork.net/images/github/symbian_kk.jpg)
-![Title_Image](http://logicwork.net/images/github/symbian_kk1.jpg)
-![Title_Image](http://logicwork.net/images/github/symbian_kk2.jpg)
+<p align="middle">
+<img src="https://github.com/laudrup/KaptajnKaper/blob/master/screenshots/1.png" width="40%" height="40%" />
+<img src="https://github.com/laudrup/KaptajnKaper/blob/master/screenshots/2.png" width="40%" height="40%" />
+</p>
+<p align="middle">
+<img src="https://github.com/laudrup/KaptajnKaper/blob/master/screenshots/3.png" width="40%" height="40%" />
+<img src="https://github.com/laudrup/KaptajnKaper/blob/master/screenshots/4.png" width="40%" height="40%" />
+</p>
 
-# Required library:
-/lib/mmapi.jar (https://www.oracle.com/technetwork/java/javaee/downloads/mmapi-141209.html)
-
-# Note, music removed:
-/res/a.mid  (http://midkar.com/themes/the_sailors_hornpipe_jrd.mid)  
-/res/b.mid  (Kong Christian stod ved højen mast)  
-/res/c.mid  (Game over)  
-/res/d.mid  (https://www.folkrag.org/tunes/sound/arran_boat.mid)  
+License
+------
+GPL v3. (like the original)
