@@ -350,19 +350,19 @@ void CGameStateSailingCity::SoftKey(int iKey) {
     int keyState = m_oCanvas->getGameAction(iKey);
 
     // H�jre
-    if ((keyState == Canvas::RIGHT)) {
+    if (keyState == Canvas::RIGHT) {
       m_bRight = true;
       return;
     }
 
     // Venstre
-    if ((keyState == Canvas::LEFT)) {
+    if (keyState == Canvas::LEFT) {
       m_bLeft = true;
       return;
     }
 
     // Ned
-    if ((keyState == Canvas::DOWN)) {
+    if (keyState == Canvas::DOWN) {
       m_bDown = true;
       return;
     }

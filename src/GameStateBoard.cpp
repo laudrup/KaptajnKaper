@@ -716,16 +716,16 @@ int CGameStateBoard::SoftKey(int iKey) {
   //------------
   // Player control
   //------------
-  if ((keyState == Canvas::LEFT)) {
+  if (keyState == Canvas::LEFT) {
     m_bLeft = true;
   }
-  if ((keyState == Canvas::RIGHT)) {
+  if (keyState == Canvas::RIGHT) {
     m_bRight = true;
   }
-  if ((keyState == Canvas::UP)) {
+  if (keyState == Canvas::UP) {
     m_bUp = true;
   }
-  if ((keyState == Canvas::DOWN)) {
+  if (keyState == Canvas::DOWN) {
     m_bDown = true;
   }
 
@@ -739,16 +739,16 @@ void CGameStateBoard::SoftKeyRelease(int iKey) {
 
   int keyState = m_oCanvas->getGameAction(iKey);
 
-  if ((keyState == Canvas::LEFT)) {
+  if (keyState == Canvas::LEFT) {
     m_bLeft = false;
   }
-  if ((keyState == Canvas::RIGHT)) {
+  if (keyState == Canvas::RIGHT) {
     m_bRight = false;
   }
-  if ((keyState == Canvas::UP)) {
+  if (keyState == Canvas::UP) {
     m_bUp = false;
   }
-  if ((keyState == Canvas::DOWN)) {
+  if (keyState == Canvas::DOWN) {
     m_bDown = false;
   }
 }
