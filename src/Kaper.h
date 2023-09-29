@@ -18,4 +18,7 @@ public:
   bool m_bPaused = false;
   bool m_bSnd = false;
   KaperCanvas* m_oKaperCanvas;
+
+private:
+  sf::RenderWindow window_;
 };

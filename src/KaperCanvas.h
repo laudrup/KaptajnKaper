@@ -29,8 +29,8 @@ public:
   void StopSound();
   void ShutDown();
 
-  int getGameAction(int) {
-    return 42;
+  int getGameAction(int key) {
+    return key;
   }
 
   void setCommandListener(void*) {
