@@ -11,13 +11,13 @@ public:
   void closeRecordStore() {
   }
   int getNumRecords() {
-    return 42;
+    return 0;
   }
   int getRecordSize(int) {
-    return 42;
+    return 0;
   }
   int getRecord(int, const std::vector<char>&, int) {
-    return 42;
+    return 0;
   }
   void setRecord(int, const std::string&) {
   }
