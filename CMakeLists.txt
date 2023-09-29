@@ -41,6 +41,7 @@ add_executable(kaper
   src/Image.cpp
   src/Kaper.cpp
   src/KaperCanvas.cpp
+  src/Random.cpp
   src/StateGame.cpp
   src/StateMenu.cpp
 )
