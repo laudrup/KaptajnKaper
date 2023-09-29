@@ -17,6 +17,11 @@ public:
     return this;
   }
 
+  StringBuilder* append(int i) {
+    str_ += std::to_string(i);
+    return this;
+  }
+
   std::string toString() const {
     return str_;
   }
