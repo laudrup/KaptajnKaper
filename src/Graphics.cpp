@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 
 #include <cassert>
-#include <iostream>
 
 Graphics::Graphics(sf::RenderTarget* target)
   : target_(target)
@@ -51,8 +50,14 @@ void Graphics::fillRect(int x, int y, int width, int height) {
   drawables_.push_back(std::move(rectangle));
 }
 
-void Graphics::drawString(const std::string& /*str*/, int /*x*/, int /*y*/, int /*anchor*/) {
-  abort();
+void Graphics::drawString(const std::string& str, int x, int y, [[maybe_unused]] int anchor) {
+  assert(anchor == (TOP | LEFT));
+  auto text = std::make_unique<sf::Text>(str, font_.font_, font_.size());
+  text->setStyle(font_.style());
+  text->setFillColor(color_);
+  text->setPosition(static_cast<float>(x), static_cast<float>(y));
+  target_->draw(*text);
+  drawables_.push_back(std::move(text));
 }
 
 void Graphics::drawLine(int x1, int y1, int x2, int y2) {
@@ -65,10 +70,10 @@ void Graphics::drawLine(int x1, int y1, int x2, int y2) {
   drawables_.push_back(std::move(line));
 }
 
-void Graphics::setFont(Font*) {
-  abort();
+void Graphics::setFont(const Font& font) {
+  font_ = font;
 }
 
-void Graphics::drawChars(const char* /*data*/, int /*offset*/, int /*length*/, int /*x*/, int /*y*/, int /*anchor*/) {
-  abort();
+void Graphics::drawChars(const char* data, int offset, int length, int x, int y, [[maybe_unused]] int anchor) {
+  drawString(std::string{data + offset, static_cast<size_t>(length)}, x, y, anchor);
 }

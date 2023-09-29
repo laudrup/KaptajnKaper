@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Font.h"
 #include "Image.h"
 #include "StateMenu.h"
 #include "StateGame.h"
@@ -11,7 +12,6 @@
 #include <vector>
 
 class Random;
-class Font;
 class Player;
 class Graphics;
 class Kaper;
@@ -67,9 +67,9 @@ public:
   StateMenu* m_oStateMenu;
   StateGame* m_oStateGame;
 
-  Font* m_oFontSmallP;
-  Font* m_oFontSmallB;
-  Font* m_oFontMediumB;
+  Font m_oFontSmallP;
+  Font m_oFontSmallB;
+  Font m_oFontMediumB;
 
   bool m_bSpeedOptimized = false;
   long long m_lSpeed = 0;

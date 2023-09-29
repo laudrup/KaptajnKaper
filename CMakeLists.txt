@@ -32,6 +32,7 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(kaper
+  src/Font.cpp
   src/GameStateAttack.cpp
   src/GameStateBoard.cpp
   src/GameStateCity.cpp

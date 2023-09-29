@@ -401,9 +401,6 @@ void KaperCanvas::ShutDown() {
   } else {
     m_oKaperApp->destroyApp(false);
     m_oKaperApp->notifyDestroyed();
-    m_oFontSmallP = nullptr;
-    m_oFontSmallB = nullptr;
-    m_oFontMediumB = nullptr;
   }
 }
 
