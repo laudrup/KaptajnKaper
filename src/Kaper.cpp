@@ -5,9 +5,14 @@
 
 #include <SFML/Window.hpp>
 
+#include <iomanip>
+#include <iostream>
 #include <optional>
+#include <sstream>
 
 namespace {
+using std::ostringstream;
+
 std::optional<int> translate_key(sf::Keyboard::Key key) {
   using Key = sf::Keyboard::Key;
   switch(key) {
@@ -63,6 +68,22 @@ sf::VideoMode get_video_mode() {
   return {sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height / 2};
 }
 
+void save_screenshot(const sf::RenderWindow& window) {
+  auto t = std::time(nullptr);
+  auto tm = *std::localtime(&t);
+  ostringstream os;
+  os << std::put_time(&tm, "screenshot_%Y%m%d_%H%M%S.png");
+  const auto fname = os.str();
+
+  sf::Texture tex;
+  tex.create(window.getSize().x, window.getSize().y);
+  tex.update(window);
+
+  sf::Image img = tex.copyToImage();
+  img.saveToFile(fname);
+  std::cerr << "Screenshot saved to '" << fname << "'\n";
+}
+
 } // namespace
 
 Kaper::Kaper()
@@ -112,6 +133,10 @@ void Kaper::startApp() {
           window_.close();
           break;
         case sf::Event::KeyPressed: {
+          if (event.key.code == sf::Keyboard::Key::F12) {
+            save_screenshot(window_);
+            continue;
+          }
           auto key = translate_key(event.key.code);
           if (key) {
             m_oKaperCanvas->keyPressed(*key);
