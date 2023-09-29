@@ -22,6 +22,10 @@ functionality. Bug reports and pull requests are very welcome.
 <img src="https://github.com/laudrup/KaptajnKaper/blob/master/screenshots/4.png" width="40%" height="40%" />
 </p>
 
+Build status
+------------
+[![](http://github-actions.40ants.com/laudrup/KaptajnKaper/matrix.svg)](https://github.com/laudrup/KaptajnKaper)
+
 License
 ------
 GPL v3. (like the original)
