@@ -121,7 +121,7 @@ public:
 
   int m_iWebRankShow = 0;
 
-  CGameStateSailingCity* m_oStateSailingToCity;
+  CGameStateSailingCity m_oStateSailingToCity;
 
   int m_iPlayerNamePos = 0;
 

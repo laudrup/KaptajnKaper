@@ -8,8 +8,9 @@
 #include "RecordStore.h"
 #include "Thread.h"
 
-StateGame::StateGame(KaperCanvas* oKaperCanvas) {
-  m_oCanvas = oKaperCanvas;
+StateGame::StateGame(KaperCanvas* oKaperCanvas)
+  : m_oCanvas{oKaperCanvas}
+  , m_oStateSailingToCity{m_oCanvas} {
   m_bLocked = true;
 
   ////////////////////////////////////////////////////////////
@@ -76,7 +77,6 @@ StateGame::StateGame(KaperCanvas* oKaperCanvas) {
   //------------------------------------//
 
   try {
-    m_oStateSailingToCity = new CGameStateSailingCity(m_oCanvas);
     m_oStateCity = new CGameStateCity(m_oCanvas);
 
     m_oCanvas->m_oImageArray[4] = Image::createImage("/5.png");
@@ -2281,7 +2281,7 @@ void StateGame::Draw(Graphics* g) {
   }
 
   if (2 == m_iGameState) {
-    m_oStateSailingToCity->Draw(g);
+    m_oStateSailingToCity.Draw(g);
   }
 
   if (1 == m_iGameState) {
@@ -2597,7 +2597,7 @@ bool StateGame::Update() {
       if (m_bToCity) {
         m_bToCity = false;
         m_iGameState = 2;
-        m_oStateSailingToCity->Init();
+        m_oStateSailingToCity.Init();
 
         return false;
       }
@@ -2618,7 +2618,7 @@ bool StateGame::Update() {
   }
 
   if (2 == m_iGameState) {
-    m_oStateSailingToCity->Update();
+    m_oStateSailingToCity.Update();
   }
 
   if (1 == m_iGameState) {
@@ -2843,24 +2843,24 @@ void StateGame::NormalButton(int iKey) {
   }
 
   else if (2 == m_iGameState) {
-    m_oStateSailingToCity->SoftKey(iKey);
+    m_oStateSailingToCity.SoftKey(iKey);
 
     if (Canvas::KEY_NUM5 != iKey) {
       return;
     }
 
-    if (m_oStateSailingToCity->m_iStatus == 5) {
-      m_oStateSailingToCity->m_bPaused = false;
-      m_oStateSailingToCity->m_iStatus = 6;
+    if (m_oStateSailingToCity.m_iStatus == 5) {
+      m_oStateSailingToCity.m_bPaused = false;
+      m_oStateSailingToCity.m_iStatus = 6;
     }
 
-    if (m_oStateSailingToCity->m_iStatus == 1) // Docked
+    if (m_oStateSailingToCity.m_iStatus == 1) // Docked
     {
       m_oStateCity->Init();
       m_iGameState = 1;
     }
 
-    else if (m_oStateSailingToCity->m_iStatus == 2) // Crashed
+    else if (m_oStateSailingToCity.m_iStatus == 2) // Crashed
     {
       m_oStateCity->Init();
       m_iGameState = 1;
