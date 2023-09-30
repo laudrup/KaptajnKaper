@@ -116,7 +116,7 @@ void Kaper::startApp() {
   sf::View view(sf::FloatRect(0, 0, 400, 300));
   window_.setView(view);
 
-  m_oKaperCanvas = new KaperCanvas(view);
+  m_oKaperCanvas = std::make_unique<KaperCanvas>(view);
   m_oKaperCanvas->m_oKaperApp = this;
   m_oKaperCanvas->setCommandListener(this);
   m_oKaperCanvas->Init(0);

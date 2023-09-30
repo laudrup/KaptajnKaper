@@ -2,6 +2,8 @@
 
 #include "KaperCanvas.h"
 
+#include <memory>
+
 class Command;
 class Displayable;
 
@@ -17,7 +19,7 @@ public:
 
   bool m_bPaused = false;
   bool m_bSnd = false;
-  KaperCanvas* m_oKaperCanvas;
+  std::unique_ptr<KaperCanvas> m_oKaperCanvas;
 
 private:
   sf::RenderWindow window_;
