@@ -1,5 +1,4 @@
 #include "Kaper.h"
-#include "Display.h"
 #include "Graphics.h"
 #include "Canvas.h"
 
