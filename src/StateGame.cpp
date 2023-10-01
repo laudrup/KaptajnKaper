@@ -10,6 +10,7 @@
 
 StateGame::StateGame(KaperCanvas* oKaperCanvas)
   : m_oCanvas{oKaperCanvas}
+  , m_oStateBoard{m_oCanvas}
   , m_oStateSailingToCity{m_oCanvas} {
   m_bLocked = true;
 
@@ -84,7 +85,6 @@ StateGame::StateGame(KaperCanvas* oKaperCanvas)
     m_oCanvas->m_oImageArray[23] = Image::createImage("/7.png");
 
     m_oStateAttack = new CGameStateAttack(m_oCanvas);
-    m_oStateBoard = new CGameStateBoard(m_oCanvas);
 
     if (m_oCanvas->m_bSpeedOptimized == false) {
       m_oCanvas->m_oImageArray[2] = Image::createImage("/31.png");
@@ -2289,7 +2289,7 @@ void StateGame::Draw(Graphics* g) {
     InterfaceDraw(g, false);
   }
   if (3 == m_iGameState) {
-    m_oStateBoard->Draw(g);
+    m_oStateBoard.Draw(g);
   }
   if (4 == m_iGameState) {
     m_oStateAttack->Draw(g);
@@ -2626,7 +2626,7 @@ bool StateGame::Update() {
   }
 
   if (3 == m_iGameState) {
-    m_oStateBoard->Update();
+    m_oStateBoard.Update();
   }
   if (4 == m_iGameState) {
     m_oStateAttack->Update();
@@ -2880,12 +2880,12 @@ void StateGame::NormalButton(int iKey) {
 
   else if (3 == m_iGameState) {
     int iStatus = 0;
-    iStatus = m_oStateBoard->SoftKey(iKey);
+    iStatus = m_oStateBoard.SoftKey(iKey);
 
     if (iStatus > 0) // Retreat
     {
       m_iResourcePirate = iStatus;
-      m_oStateBoard->DeInit();
+      m_oStateBoard.DeInit();
       m_iGameState = 0;
       //				m_sEventMsg1 = "You escaped combat";
       CalculateFleePunish();
@@ -2895,7 +2895,7 @@ void StateGame::NormalButton(int iKey) {
 
     if (iStatus == -1) // Game Over
     {
-      m_oStateBoard->DeInit();
+      m_oStateBoard.DeInit();
       m_iGameState = 0;
 
       if (m_iResourcePirate <= 0) // GameOver
@@ -2918,13 +2918,7 @@ void StateGame::NormalButton(int iKey) {
       }
 
       m_iEnemySoldiers = iStatus;
-      if (m_oStateBoard == nullptr) {
-        m_bWait = true;
-        m_iGameState = 0;
-        m_iEvent = 23;
-        return;
-      }
-      m_oStateBoard->Init(iStatus);
+      m_oStateBoard.Init(iStatus);
       m_iGameState = 3;
     }
 
@@ -3307,24 +3301,12 @@ void StateGame::KeyPressedEvent(int iKey) {
 
     if (m_iEventOld == 8) {
       m_iEnemySoldiers = std::abs(m_oCanvas->m_oRand->nextInt() % (m_iResourcePirate + 1)) + 1;
-      if (m_oStateBoard == nullptr) {
-        m_bWait = true;
-        m_iGameState = 0;
-        m_iEvent = 23;
-        return;
-      }
-      m_oStateBoard->Init(m_iEnemySoldiers);
+      m_oStateBoard.Init(m_iEnemySoldiers);
       m_iGameState = 3; // GAME_CLOSECOMBAT;
     }
     if (m_iEventOld == 4) {
       m_iEnemySoldiers = std::abs(m_oCanvas->m_oRand->nextInt() % (m_iResourcePirate + 1)) + 1;
-      if (m_oStateBoard == nullptr) {
-        m_bWait = true;
-        m_iGameState = 0;
-        m_iEvent = 23;
-        return;
-      }
-      m_oStateBoard->Init(m_iEnemySoldiers);
+      m_oStateBoard.Init(m_iEnemySoldiers);
       m_iGameState = 3; // GAME_CLOSECOMBAT;
     }
   }

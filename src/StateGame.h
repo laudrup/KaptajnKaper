@@ -21,6 +21,8 @@ class HttpConnection;
 
 class StateGame {
 public:
+  KaperCanvas* m_oCanvas;
+
   RegisterHighscore* m_oRegisterHigh;
 
   int m_iShipX = 0;
@@ -107,14 +109,13 @@ public:
   // StateGame
   ////////////////////////////////////////////////////////////
   int m_iGameState = 0;
-  CGameStateBoard* m_oStateBoard;
+  CGameStateBoard m_oStateBoard;
   CGameStateAttack* m_oStateAttack;
   CGameStateCity* m_oStateCity;
   int m_iCapturedShip = 0;
 
   std::string m_sPlayerName;
 
-  KaperCanvas* m_oCanvas;
   bool m_bWaitingOnMove = false;
   bool m_bClose = false;
   bool m_bToCity = false;
