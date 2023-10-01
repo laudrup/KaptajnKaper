@@ -1,9 +1,9 @@
 #pragma once
 
-#include "KaperCanvas.h"
-
-#include <cmath>
 #include <string>
+
+class Graphics;
+class KaperCanvas;
 
 class CGameStateCity {
 public:

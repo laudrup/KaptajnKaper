@@ -383,7 +383,7 @@ void KaperCanvas::ShutDown() {
 
   if (m_cGameMode == 2) {
     if (m_oStateGame->m_iGameState == 1) {
-      m_oStateGame->m_oStateCity->DeInit();
+      m_oStateGame->m_oStateCity.DeInit();
       m_oStateGame->m_iGameState = 0;
     } else if (m_oStateGame->m_iGameState == 4) {
       m_oStateGame->m_oStateAttack.m_bRetreat = true;

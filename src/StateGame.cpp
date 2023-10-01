@@ -11,8 +11,9 @@
 StateGame::StateGame(KaperCanvas* oKaperCanvas)
   : m_oStateBoard{oKaperCanvas}
   , m_oStateAttack{oKaperCanvas}
-  , m_oCanvas{oKaperCanvas}
-  , m_oStateSailingToCity{m_oCanvas} {
+  , m_oStateCity{oKaperCanvas}
+  , m_oStateSailingToCity{oKaperCanvas}
+  , m_oCanvas{oKaperCanvas} {
   m_bLocked = true;
 
   ////////////////////////////////////////////////////////////
@@ -79,8 +80,6 @@ StateGame::StateGame(KaperCanvas* oKaperCanvas)
   //------------------------------------//
 
   try {
-    m_oStateCity = new CGameStateCity(m_oCanvas);
-
     m_oCanvas->m_oImageArray[4] = Image::createImage("/5.png");
     m_oCanvas->m_oImageArray[3] = Image::createImage("/4.png");
     m_oCanvas->m_oImageArray[23] = Image::createImage("/7.png");
@@ -1401,7 +1400,7 @@ void StateGame::InterfaceDraw(Graphics* g, bool bTurn) {
 
   if (m_iGameState == 1) // City State
   {
-    if (m_oStateCity->m_cTarget == 1 && ((m_oStateCity->m_iBlink % 2) == 1)) {
+    if (m_oStateCity.m_cTarget == 1 && ((m_oStateCity.m_iBlink % 2) == 1)) {
       g->setColor(255, 0, 0);
     }
   }
@@ -1419,7 +1418,7 @@ void StateGame::InterfaceDraw(Graphics* g, bool bTurn) {
 
   if (m_iGameState == 1) // City State
   {
-    if (m_oStateCity->m_cTarget == 2 && ((m_oStateCity->m_iBlink % 2) == 1)) {
+    if (m_oStateCity.m_cTarget == 2 && ((m_oStateCity.m_iBlink % 2) == 1)) {
       g->setColor(255, 0, 0);
     }
   }
@@ -1443,7 +1442,7 @@ void StateGame::InterfaceDraw(Graphics* g, bool bTurn) {
 
   if (m_iGameState == 1) // City State
   {
-    if (m_oStateCity->m_cTarget == 3 && ((m_oStateCity->m_iBlink % 2) == 1)) {
+    if (m_oStateCity.m_cTarget == 3 && ((m_oStateCity.m_iBlink % 2) == 1)) {
       g->setColor(255, 0, 0);
     }
   }
@@ -2284,7 +2283,7 @@ void StateGame::Draw(Graphics* g) {
   }
 
   if (1 == m_iGameState) {
-    m_oStateCity->Draw(g);
+    m_oStateCity.Draw(g);
     InterfaceDraw(g, false);
   }
   if (3 == m_iGameState) {
@@ -2621,7 +2620,7 @@ bool StateGame::Update() {
   }
 
   if (1 == m_iGameState) {
-    m_oStateCity->Update();
+    m_oStateCity.Update();
   }
 
   if (3 == m_iGameState) {
@@ -2855,13 +2854,13 @@ void StateGame::NormalButton(int iKey) {
 
     if (m_oStateSailingToCity.m_iStatus == 1) // Docked
     {
-      m_oStateCity->Init();
+      m_oStateCity.Init();
       m_iGameState = 1;
     }
 
     else if (m_oStateSailingToCity.m_iStatus == 2) // Crashed
     {
-      m_oStateCity->Init();
+      m_oStateCity.Init();
       m_iGameState = 1;
 
       // Punish
@@ -2871,8 +2870,8 @@ void StateGame::NormalButton(int iKey) {
   }
 
   else if (1 == m_iGameState) {
-    if (-1 == m_oStateCity->SoftKey(iKey)) {
-      m_oStateCity->DeInit();
+    if (-1 == m_oStateCity.SoftKey(iKey)) {
+      m_oStateCity.DeInit();
       m_iGameState = 0;
     }
   }

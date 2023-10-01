@@ -1,9 +1,10 @@
 #pragma once
 
-#include "GameStateBoard.h"
 #include "GameStateAttack.h"
-#include "KaperCanvas.h"
+#include "GameStateBoard.h"
+#include "GameStateCity.h"
 #include "GameStateSailingCity.h"
+#include "KaperCanvas.h"
 
 #include "stringbuilder.h"
 
@@ -14,7 +15,6 @@
 
 class RegisterHighscore;
 class CGameStateSailingCity;
-class CGameStateCity;
 class InputStream;
 class HttpConnection;
 
@@ -55,7 +55,7 @@ public:
   int m_iGameState = 0;
   CGameStateBoard m_oStateBoard;
   CGameStateAttack m_oStateAttack;
-  CGameStateCity* m_oStateCity;
+  CGameStateCity m_oStateCity;
   int m_iCapturedShip = 0;
   bool m_bKeyLeft = false;
   bool m_bKeyRight = false;
@@ -92,6 +92,7 @@ private:
   void CloseCombatWon();
 
   int m_iShipGraphicWay = 0;
+  CGameStateSailingCity m_oStateSailingToCity;
   KaperCanvas* m_oCanvas;
   RegisterHighscore* m_oRegisterHigh;
   std::vector<int> m_iShipWaveA;
@@ -128,7 +129,6 @@ private:
   bool m_bClose = false;
   bool m_bToCity = false;
   int m_iWebRankShow = 0;
-  CGameStateSailingCity m_oStateSailingToCity;
   int m_iPlayerNamePos = 0;
   int m_iKeyCountDown = 0;
   std::vector<int> m_iEventX;

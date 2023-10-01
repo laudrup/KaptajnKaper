@@ -1,8 +1,9 @@
-#include "GameStateCity.h"
 #include "Canvas.h"
+#include "GameStateCity.h"
 #include "Graphics.h"
-#include "Random.h"
 #include "Image.h"
+#include "KaperCanvas.h"
+#include "Random.h"
 
 CGameStateCity::CGameStateCity(KaperCanvas* oKaperCanvas) {
   m_bLocked = true;
