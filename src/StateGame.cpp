@@ -10,6 +10,7 @@
 
 StateGame::StateGame(KaperCanvas* oKaperCanvas)
   : m_oStateBoard{oKaperCanvas}
+  , m_oStateAttack{oKaperCanvas}
   , m_oCanvas{oKaperCanvas}
   , m_oStateSailingToCity{m_oCanvas} {
   m_bLocked = true;
@@ -83,8 +84,6 @@ StateGame::StateGame(KaperCanvas* oKaperCanvas)
     m_oCanvas->m_oImageArray[4] = Image::createImage("/5.png");
     m_oCanvas->m_oImageArray[3] = Image::createImage("/4.png");
     m_oCanvas->m_oImageArray[23] = Image::createImage("/7.png");
-
-    m_oStateAttack = new CGameStateAttack(m_oCanvas);
 
     if (m_oCanvas->m_bSpeedOptimized == false) {
       m_oCanvas->m_oImageArray[2] = Image::createImage("/31.png");
@@ -2292,7 +2291,7 @@ void StateGame::Draw(Graphics* g) {
     m_oStateBoard.Draw(g);
   }
   if (4 == m_iGameState) {
-    m_oStateAttack->Draw(g);
+    m_oStateAttack.Draw(g);
   }
 }
 
@@ -2629,7 +2628,7 @@ bool StateGame::Update() {
     m_oStateBoard.Update();
   }
   if (4 == m_iGameState) {
-    m_oStateAttack->Update();
+    m_oStateAttack.Update();
   }
 
   return false;
@@ -2908,7 +2907,7 @@ void StateGame::NormalButton(int iKey) {
     }
   } else if (4 == m_iGameState) {
     int iStatus = 0;
-    iStatus = m_oStateAttack->SoftKey(iKey);
+    iStatus = m_oStateAttack.SoftKey(iKey);
 
     if (iStatus > 0) // Board
     {
@@ -3335,11 +3334,7 @@ void StateGame::KeyPressedEvent(int iKey) {
       return;
     }
 
-    if (m_oStateAttack == nullptr) {
-      m_oCanvas->m_cGameMode = 6;
-      return;
-    }
-    m_oStateAttack->Init(m_iEnemyShipCannons[m_iShipNr], m_iEnemyShipSoldiers[m_iShipNr]);
+    m_oStateAttack.Init(m_iEnemyShipCannons[m_iShipNr], m_iEnemyShipSoldiers[m_iShipNr]);
 
     m_iGameState = 4; // GAME_RANGECOMBAT;
     m_iEventOld = m_iEvent;

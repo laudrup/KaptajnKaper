@@ -1,7 +1,8 @@
-#include "GameStateAttack.h"
 #include "Canvas.h"
+#include "GameStateAttack.h"
 #include "Graphics.h"
 #include "Image.h"
+#include "KaperCanvas.h"
 #include "Random.h"
 
 CGameStateAttack::CGameStateAttack(KaperCanvas* oKaperCanvas) {

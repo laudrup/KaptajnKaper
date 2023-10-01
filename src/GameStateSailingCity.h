@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GameStateBoard.h"
 #include <cmath>
 #include <vector>
 

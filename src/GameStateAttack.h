@@ -1,9 +1,10 @@
 #pragma once
 
-#include "KaperCanvas.h"
-
 #include <cmath>
 #include <vector>
+
+class Graphics;
+class KaperCanvas;
 
 class CGameStateAttack {
 public:

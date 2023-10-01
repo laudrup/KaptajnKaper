@@ -386,9 +386,9 @@ void KaperCanvas::ShutDown() {
       m_oStateGame->m_oStateCity->DeInit();
       m_oStateGame->m_iGameState = 0;
     } else if (m_oStateGame->m_iGameState == 4) {
-      m_oStateGame->m_oStateAttack->m_bRetreat = true;
-      m_oStateGame->m_oStateAttack->m_iKeyPause = 0;
-      m_oStateGame->m_oStateAttack->SoftKey(Canvas::KEY_NUM0);
+      m_oStateGame->m_oStateAttack.m_bRetreat = true;
+      m_oStateGame->m_oStateAttack.m_iKeyPause = 0;
+      m_oStateGame->m_oStateAttack.SoftKey(Canvas::KEY_NUM0);
     } else if (m_oStateGame->m_iGameState == 3) {
       m_oStateGame->m_oStateBoard.m_bRetreat = true;
       m_oStateGame->m_oStateBoard.m_iKeyPause = 0;
@@ -457,7 +457,7 @@ void KaperCanvas::keyReleased(int keyCode) {
     if (m_oStateGame != nullptr) {
       if (m_oStateGame->m_bLocked == false) {
         if (m_oStateGame->m_iGameState == 4) {
-          m_oStateGame->m_oStateAttack->SoftKeyRelease(keyCode);
+          m_oStateGame->m_oStateAttack.SoftKeyRelease(keyCode);
         } else if (m_oStateGame->m_iGameState == 3) {
           m_oStateGame->m_oStateBoard.SoftKeyRelease(keyCode);
         } else {

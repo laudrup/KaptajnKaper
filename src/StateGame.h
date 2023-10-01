@@ -15,7 +15,6 @@
 class RegisterHighscore;
 class CGameStateSailingCity;
 class CGameStateCity;
-class CGameStateAttack;
 class InputStream;
 class HttpConnection;
 
@@ -55,7 +54,7 @@ public:
   int m_iShipLvl = 0;
   int m_iGameState = 0;
   CGameStateBoard m_oStateBoard;
-  CGameStateAttack* m_oStateAttack;
+  CGameStateAttack m_oStateAttack;
   CGameStateCity* m_oStateCity;
   int m_iCapturedShip = 0;
   bool m_bKeyLeft = false;
