@@ -33,15 +33,6 @@ public:
     return key;
   }
 
-  void setCommandListener(void*) {
-  }
-
-  void repaint() {
-  }
-
-  void serviceRepaints() {
-  }
-
   int getWidth() {
     return static_cast<int>(view_.getSize().x);
   }

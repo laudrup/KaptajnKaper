@@ -118,7 +118,6 @@ void Kaper::startApp() {
 
   m_oKaperCanvas = std::make_unique<KaperCanvas>(view);
   m_oKaperCanvas->m_oKaperApp = this;
-  m_oKaperCanvas->setCommandListener(this);
   m_oKaperCanvas->Init(0);
   Graphics g{&window_};
 
@@ -153,8 +152,6 @@ void Kaper::startApp() {
     }
     m_oKaperCanvas->run();
     m_oKaperCanvas->paint(&g);
-    m_oKaperCanvas->repaint();
-    m_oKaperCanvas->serviceRepaints();
     window_.display();
   }
 }
