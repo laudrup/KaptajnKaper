@@ -9,8 +9,8 @@
 #include "Thread.h"
 
 StateGame::StateGame(KaperCanvas* oKaperCanvas)
-  : m_oCanvas{oKaperCanvas}
-  , m_oStateBoard{m_oCanvas}
+  : m_oStateBoard{oKaperCanvas}
+  , m_oCanvas{oKaperCanvas}
   , m_oStateSailingToCity{m_oCanvas} {
   m_bLocked = true;
 
