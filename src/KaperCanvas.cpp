@@ -323,7 +323,7 @@ void KaperCanvas::SoftButtonSND(bool bState) {
     } else if (m_cGameMode == 1) {
       PlaySound("a.mid", false);
     } else if (m_cGameMode == 2) {
-      if (m_oStateGame->m_iGameState == 1) {
+      if (m_oStateGame->game_state == StateGame::state::city) {
         PlaySound("d.mid", true);
       }
     }
@@ -382,14 +382,14 @@ void KaperCanvas::ShutDown() {
   m_bWantToQuit = false;
 
   if (m_cGameMode == 2) {
-    if (m_oStateGame->m_iGameState == 1) {
+    if (m_oStateGame->game_state == StateGame::state::city) {
       m_oStateGame->m_oStateCity.DeInit();
-      m_oStateGame->m_iGameState = 0;
-    } else if (m_oStateGame->m_iGameState == 4) {
+      m_oStateGame->game_state = StateGame::state::board;
+    } else if (m_oStateGame->game_state == StateGame::state::ranged_combat) {
       m_oStateGame->m_oStateAttack.m_bRetreat = true;
       m_oStateGame->m_oStateAttack.m_iKeyPause = 0;
       m_oStateGame->m_oStateAttack.SoftKey(Canvas::KEY_NUM0);
-    } else if (m_oStateGame->m_iGameState == 3) {
+    } else if (m_oStateGame->game_state == StateGame::state::close_combat) {
       m_oStateGame->m_oStateBoard.m_bRetreat = true;
       m_oStateGame->m_oStateBoard.m_iKeyPause = 0;
       m_oStateGame->m_oStateBoard.SoftKey(Canvas::KEY_NUM0);
@@ -456,9 +456,9 @@ void KaperCanvas::keyReleased(int keyCode) {
   if (2 == m_cGameMode) {
     if (m_oStateGame != nullptr) {
       if (m_oStateGame->m_bLocked == false) {
-        if (m_oStateGame->m_iGameState == 4) {
+        if (m_oStateGame->game_state == StateGame::state::ranged_combat) {
           m_oStateGame->m_oStateAttack.SoftKeyRelease(keyCode);
-        } else if (m_oStateGame->m_iGameState == 3) {
+        } else if (m_oStateGame->game_state == StateGame::state::close_combat) {
           m_oStateGame->m_oStateBoard.SoftKeyRelease(keyCode);
         } else {
           m_oStateGame->NormalButton(128);

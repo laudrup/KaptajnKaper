@@ -29,6 +29,16 @@ public:
   bool Update();
   void NormalButton(int iKey);
 
+  enum class state {
+    board, // 0 board
+    city, // 1 city
+    sail_to_city, // 2 sail to city
+    close_combat, // 3 close combat
+    ranged_combat, // 4 range combat
+    game_over, // 5 game over
+    high_score // 6 high score
+  } game_state = state::board;
+
   int m_iShipX = 0;
   int m_iShipY = 0;
   bool m_bShipMoving = false;
@@ -52,7 +62,6 @@ public:
   int m_iResourcePirate = 0;
   int m_iScore = 0;
   int m_iShipLvl = 0;
-  int m_iGameState = 0;
   CGameStateBoard m_oStateBoard;
   CGameStateAttack m_oStateAttack;
   CGameStateCity m_oStateCity;

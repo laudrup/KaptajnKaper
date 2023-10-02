@@ -121,7 +121,7 @@ void StateGame::Init() {
   m_bToCity = false;
   m_bWait = false;
 
-  m_iGameState = 0;
+  game_state = StateGame::state::board;
 
   m_iWebRankShow = 1;
 
@@ -1398,7 +1398,7 @@ void StateGame::InterfaceDraw(Graphics* g, bool bTurn) {
   // Corn
   g->setColor(255, 255, 255);
 
-  if (m_iGameState == 1) // City State
+  if (game_state == StateGame::state::city) // City State
   {
     if (m_oStateCity.m_cTarget == 1 && ((m_oStateCity.m_iBlink % 2) == 1)) {
       g->setColor(255, 0, 0);
@@ -1416,7 +1416,7 @@ void StateGame::InterfaceDraw(Graphics* g, bool bTurn) {
   // Pirates
   g->setColor(255, 255, 255);
 
-  if (m_iGameState == 1) // City State
+  if (game_state == StateGame::state::city) // City State
   {
     if (m_oStateCity.m_cTarget == 2 && ((m_oStateCity.m_iBlink % 2) == 1)) {
       g->setColor(255, 0, 0);
@@ -1440,7 +1440,7 @@ void StateGame::InterfaceDraw(Graphics* g, bool bTurn) {
   // Cannons
   g->setColor(255, 255, 255);
 
-  if (m_iGameState == 1) // City State
+  if (game_state == StateGame::state::city) // City State
   {
     if (m_oStateCity.m_cTarget == 3 && ((m_oStateCity.m_iBlink % 2) == 1)) {
       g->setColor(255, 0, 0);
@@ -1683,7 +1683,7 @@ void StateGame::Draw(Graphics* g) {
     return;
   }
 
-  if (6 == m_iGameState) {
+  if (game_state == StateGame::state::high_score) {
     MapDraw(g);
     DrawBlackBackGround(g);
 
@@ -1952,7 +1952,7 @@ void StateGame::Draw(Graphics* g) {
     }
   }
 
-  if (0 == m_iGameState) {
+  if (game_state == StateGame::state::board) {
     MapDraw(g);
 
     // Event Draw
@@ -2252,7 +2252,7 @@ void StateGame::Draw(Graphics* g) {
     InterfaceDraw(g, true);
   }
 
-  if (5 == m_iGameState) {
+  if (game_state == StateGame::state::game_over) {
     MapDraw(g);
     ShipDraw(g);
 
@@ -2278,18 +2278,18 @@ void StateGame::Draw(Graphics* g) {
     m_oCanvas->DrawString(m_iScoreTurn300, 105, 30, false, 0);
   }
 
-  if (2 == m_iGameState) {
+  if (game_state == StateGame::state::sail_to_city) {
     m_oStateSailingToCity.Draw(g);
   }
 
-  if (1 == m_iGameState) {
+  if (game_state == StateGame::state::city) {
     m_oStateCity.Draw(g);
     InterfaceDraw(g, false);
   }
-  if (3 == m_iGameState) {
+  if (game_state == StateGame::state::close_combat) {
     m_oStateBoard.Draw(g);
   }
-  if (4 == m_iGameState) {
+  if (game_state == StateGame::state::ranged_combat) {
     m_oStateAttack.Draw(g);
   }
 }
@@ -2543,7 +2543,7 @@ bool StateGame::Update() {
     m_oCanvas->m_oStateMenu->m_bAnyContinueGame = false;
   }
 
-  if (0 == m_iGameState) {
+  if (game_state == StateGame::state::board) {
     MapUpdate();
     ShipUpdate();
 
@@ -2594,7 +2594,7 @@ bool StateGame::Update() {
     if (m_bWaitingOnMove == true && m_bShipMoving == false && m_bMapMoving == false) {
       if (m_bToCity) {
         m_bToCity = false;
-        m_iGameState = 2;
+        game_state = StateGame::state::sail_to_city;
         m_oStateSailingToCity.Init();
 
         return false;
@@ -2615,18 +2615,18 @@ bool StateGame::Update() {
     KeyHandling();
   }
 
-  if (2 == m_iGameState) {
+  if (game_state == StateGame::state::sail_to_city) {
     m_oStateSailingToCity.Update();
   }
 
-  if (1 == m_iGameState) {
+  if (game_state == StateGame::state::city) {
     m_oStateCity.Update();
   }
 
-  if (3 == m_iGameState) {
+  if (game_state == StateGame::state::close_combat) {
     m_oStateBoard.Update();
   }
-  if (4 == m_iGameState) {
+  if (game_state == StateGame::state::ranged_combat) {
     m_oStateAttack.Update();
   }
 
@@ -2705,7 +2705,7 @@ void StateGame::NormalButton(int iKey) {
 
   // Normal Keys
 
-  if (6 == m_iGameState) {
+  if (game_state == StateGame::state::high_score) {
     if (iKey == 128) {
       return;
     }
@@ -2731,7 +2731,7 @@ void StateGame::NormalButton(int iKey) {
     }
   }
 
-  if (5 == m_iGameState) {
+  if (game_state == StateGame::state::game_over) {
     if (Canvas::KEY_NUM1 == iKey) {
       m_oCanvas->StopSound();
 
@@ -2763,7 +2763,7 @@ void StateGame::NormalButton(int iKey) {
       commThread = new Thread(m_oRegisterHigh);
       commThread->start();
 
-      m_iGameState = 6;
+      game_state = StateGame::state::high_score;
 
       delete commThread;
       return;
@@ -2808,7 +2808,7 @@ void StateGame::NormalButton(int iKey) {
     return;
   }
 
-  if (0 == m_iGameState && m_bWait == false) {
+  if (game_state == StateGame::state::board && m_bWait == false) {
     if (Canvas::KEY_NUM5 == iKey) {
       // Instant gold
       m_iResourceGold += m_iAddGold;
@@ -2822,7 +2822,7 @@ void StateGame::NormalButton(int iKey) {
     }
   }
 
-  if (0 == m_iGameState && m_bWait == true) {
+  if (game_state == StateGame::state::board && m_bWait == true) {
     if (Canvas::KEY_NUM7 == iKey) {
       KeyPressedEvent(7);
     }
@@ -2840,7 +2840,7 @@ void StateGame::NormalButton(int iKey) {
     }
   }
 
-  else if (2 == m_iGameState) {
+  else if (game_state == StateGame::state::sail_to_city) {
     m_oStateSailingToCity.SoftKey(iKey);
 
     if (Canvas::KEY_NUM5 != iKey) {
@@ -2855,13 +2855,13 @@ void StateGame::NormalButton(int iKey) {
     if (m_oStateSailingToCity.m_iStatus == 1) // Docked
     {
       m_oStateCity.Init();
-      m_iGameState = 1;
+      game_state = StateGame::state::city;
     }
 
     else if (m_oStateSailingToCity.m_iStatus == 2) // Crashed
     {
       m_oStateCity.Init();
-      m_iGameState = 1;
+      game_state = StateGame::state::city;
 
       // Punish
       m_iAddCannons = -1;
@@ -2869,14 +2869,14 @@ void StateGame::NormalButton(int iKey) {
     }
   }
 
-  else if (1 == m_iGameState) {
+  else if (game_state == StateGame::state::city) {
     if (-1 == m_oStateCity.SoftKey(iKey)) {
       m_oStateCity.DeInit();
-      m_iGameState = 0;
+      game_state = StateGame::state::board;
     }
   }
 
-  else if (3 == m_iGameState) {
+  else if (game_state == StateGame::state::close_combat) {
     int iStatus = 0;
     iStatus = m_oStateBoard.SoftKey(iKey);
 
@@ -2884,7 +2884,7 @@ void StateGame::NormalButton(int iKey) {
     {
       m_iResourcePirate = iStatus;
       m_oStateBoard.DeInit();
-      m_iGameState = 0;
+      game_state = StateGame::state::board;
       //				m_sEventMsg1 = "You escaped combat";
       CalculateFleePunish();
       m_iEvent = 20;
@@ -2894,7 +2894,7 @@ void StateGame::NormalButton(int iKey) {
     if (iStatus == -1) // Game Over
     {
       m_oStateBoard.DeInit();
-      m_iGameState = 0;
+      game_state = StateGame::state::board;
 
       if (m_iResourcePirate <= 0) // GameOver
       {
@@ -2904,7 +2904,7 @@ void StateGame::NormalButton(int iKey) {
         CloseCombatWon();
       }
     }
-  } else if (4 == m_iGameState) {
+  } else if (game_state == StateGame::state::ranged_combat) {
     int iStatus = 0;
     iStatus = m_oStateAttack.SoftKey(iKey);
 
@@ -2917,7 +2917,7 @@ void StateGame::NormalButton(int iKey) {
 
       m_iEnemySoldiers = iStatus;
       m_oStateBoard.Init(iStatus);
-      m_iGameState = 3;
+      game_state = StateGame::state::close_combat;
     }
 
     if (iStatus == -2) // Flee
@@ -2929,7 +2929,7 @@ void StateGame::NormalButton(int iKey) {
 
       //				m_oStateAttack.DeInit();
 
-      m_iGameState = 0;
+      game_state = StateGame::state::board;
 
       // m_sEventMsg1 = "You got away";
       CalculateFleePunish();
@@ -2939,7 +2939,7 @@ void StateGame::NormalButton(int iKey) {
     if (iStatus == -1) {
       //				m_oStateAttack.DeInit();
 
-      m_iGameState = 0;
+      game_state = StateGame::state::board;
 
       if (m_iResourcePirate <= 0) // GameOver
       {
@@ -3095,7 +3095,7 @@ void StateGame::GameOver() {
 
   CleanGame(false);
 
-  m_iGameState = 5;
+  game_state = StateGame::state::game_over;
   m_oCanvas->PlaySound("c.mid", false);
 }
 
@@ -3300,12 +3300,12 @@ void StateGame::KeyPressedEvent(int iKey) {
     if (m_iEventOld == 8) {
       m_iEnemySoldiers = std::abs(m_oCanvas->m_oRand->nextInt() % (m_iResourcePirate + 1)) + 1;
       m_oStateBoard.Init(m_iEnemySoldiers);
-      m_iGameState = 3; // GAME_CLOSECOMBAT;
+      game_state = StateGame::state::close_combat; // GAME_CLOSECOMBAT;
     }
     if (m_iEventOld == 4) {
       m_iEnemySoldiers = std::abs(m_oCanvas->m_oRand->nextInt() % (m_iResourcePirate + 1)) + 1;
       m_oStateBoard.Init(m_iEnemySoldiers);
-      m_iGameState = 3; // GAME_CLOSECOMBAT;
+      game_state = StateGame::state::close_combat; // GAME_CLOSECOMBAT;
     }
   }
 
@@ -3335,7 +3335,7 @@ void StateGame::KeyPressedEvent(int iKey) {
 
     m_oStateAttack.Init(m_iEnemyShipCannons[m_iShipNr], m_iEnemyShipSoldiers[m_iShipNr]);
 
-    m_iGameState = 4; // GAME_RANGECOMBAT;
+    game_state = StateGame::state::ranged_combat; // GAME_RANGECOMBAT;
     m_iEventOld = m_iEvent;
     m_iEvent = -1;
   }
@@ -3970,7 +3970,7 @@ void StateGame::DrawFrame(Graphics* g) {
     iYStart = 0;
   }
 
-  if (5 == m_iGameState) {
+  if (game_state == StateGame::state::game_over) {
     iY++;
     iX++;
     iXStart = 0;
