@@ -889,7 +889,7 @@ void SubmitWebScore::run() {
     // Convert Buf to String
     m_oFather->m_sWebCode = m_sBuf->toString();
     m_oFather->m_iSubmitCodeStatus = 2;
-  } catch (const std::runtime_error& e) {
+  } catch (const std::runtime_error&) {
     m_oFather->m_iSubmitCodeStatus = 3;
   }
 }
