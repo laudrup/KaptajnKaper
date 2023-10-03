@@ -2,9 +2,7 @@
 #
 # https://github.com/lefticus/cppbestpractices/blob/master/02-Use_the_Tools_Available.md
 
-function(set_project_warnings project_name)
-  option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors" FALSE)
-
+function(set_project_warnings project_name warnings_as_errors)
   set(MSVC_WARNINGS
       /W4 # Baseline reasonable warnings
       /w14242 # 'identifier': conversion from 'type1' to 'type1', possible loss of data
@@ -47,7 +45,7 @@ function(set_project_warnings project_name)
       -Wformat=2 # warn on security issues around functions that format output (ie printf)
   )
 
-  if(WARNINGS_AS_ERRORS)
+  if(warnings_as_errors)
     set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
     set(MSVC_WARNINGS ${MSVC_WARNINGS} /WX)
   endif()

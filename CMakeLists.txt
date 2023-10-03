@@ -22,7 +22,8 @@ if(WIN32)
   )
 endif()
 
-set_project_warnings(project_warnings)
+option(KAPER_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" TRUE)
+set_project_warnings(project_warnings ${KAPER_WARNINGS_AS_ERRORS})
 enable_sanitizers(project_options)
 
 FetchContent_Declare(SFML
