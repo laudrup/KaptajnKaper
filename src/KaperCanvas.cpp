@@ -16,7 +16,7 @@
 namespace {
   std::string to_upper(std::string source) {
     std::transform(source.begin(), source.end(), source.begin(), [](char c) {
-      return std::toupper(c);
+      return static_cast<char>(std::toupper(c));
     });
     return source;
   }
