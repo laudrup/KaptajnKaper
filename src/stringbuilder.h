@@ -26,8 +26,8 @@ public:
     return str_;
   }
 
-  std::size_t length() const {
-    return str_.length();
+  int length() const {
+    return static_cast<int>(str_.length());
   }
 
   StringBuilder* remove(std::size_t begin, std::size_t end) {

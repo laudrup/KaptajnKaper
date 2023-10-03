@@ -621,7 +621,7 @@ void KaperCanvas::DrawString(int iNumbers, int x, int y, bool bBold, int iColor)
     for (int i = 0; i < 4; i++) {
       iYoffset = 0;
 
-      if (static_cast<int>(m_stringBuffer->length()) <= i) {
+      if (m_stringBuffer->length() <= i) {
         break;
       }
 
