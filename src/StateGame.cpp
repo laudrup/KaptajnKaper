@@ -79,37 +79,34 @@ StateGame::StateGame(KaperCanvas* oKaperCanvas)
   //----------- MAP / States -----------//
   //------------------------------------//
 
-  try {
-    m_oCanvas->m_oImageArray[4] = Image::createImage("/5.png");
-    m_oCanvas->m_oImageArray[3] = Image::createImage("/4.png");
-    m_oCanvas->m_oImageArray[23] = Image::createImage("/7.png");
+  m_oCanvas->m_oImageArray[4] = Image::createImage("/5.png");
+  m_oCanvas->m_oImageArray[3] = Image::createImage("/4.png");
+  m_oCanvas->m_oImageArray[23] = Image::createImage("/7.png");
 
-    if (m_oCanvas->m_bSpeedOptimized == false) {
-      m_oCanvas->m_oImageArray[2] = Image::createImage("/31.png");
-      m_oCanvas->m_oImageArray[6] = Image::createImage("/32.png");
-      m_oCanvas->m_oImageArray[7] = Image::createImage("/33.png");
-      m_oCanvas->m_oImageArray[8] = Image::createImage("/34.png");
-      m_oCanvas->m_oImageArray[9] = Image::createImage("/35.png");
-      m_oCanvas->m_oImageArray[10] = Image::createImage("/36.png");
-      m_oCanvas->m_oImageArray[11] = Image::createImage("/37.png");
-      m_oCanvas->m_oImageArray[12] = Image::createImage("/38.png");
-      m_oCanvas->m_oImageArray[13] = Image::createImage("/39.png");
-      m_oCanvas->m_oImageArray[14] = Image::createImage("/310.png");
-      m_oCanvas->m_oImageArray[15] = Image::createImage("/311.png");
-      m_oCanvas->m_oImageArray[16] = Image::createImage("/312.png");
-      m_oCanvas->m_oImageArray[17] = Image::createImage("/313.png");
-      m_oCanvas->m_oImageArray[18] = Image::createImage("/314.png");
-      m_oCanvas->m_oImageArray[19] = Image::createImage("/315.png");
-      m_oCanvas->m_oImageArray[20] = Image::createImage("/316.png");
-      m_oCanvas->m_oImageArray[21] = Image::createImage("/317.png");
-      m_oCanvas->m_oImageArray[22] = Image::createImage("/318.png");
+  if (m_oCanvas->m_bSpeedOptimized == false) {
+    m_oCanvas->m_oImageArray[2] = Image::createImage("/31.png");
+    m_oCanvas->m_oImageArray[6] = Image::createImage("/32.png");
+    m_oCanvas->m_oImageArray[7] = Image::createImage("/33.png");
+    m_oCanvas->m_oImageArray[8] = Image::createImage("/34.png");
+    m_oCanvas->m_oImageArray[9] = Image::createImage("/35.png");
+    m_oCanvas->m_oImageArray[10] = Image::createImage("/36.png");
+    m_oCanvas->m_oImageArray[11] = Image::createImage("/37.png");
+    m_oCanvas->m_oImageArray[12] = Image::createImage("/38.png");
+    m_oCanvas->m_oImageArray[13] = Image::createImage("/39.png");
+    m_oCanvas->m_oImageArray[14] = Image::createImage("/310.png");
+    m_oCanvas->m_oImageArray[15] = Image::createImage("/311.png");
+    m_oCanvas->m_oImageArray[16] = Image::createImage("/312.png");
+    m_oCanvas->m_oImageArray[17] = Image::createImage("/313.png");
+    m_oCanvas->m_oImageArray[18] = Image::createImage("/314.png");
+    m_oCanvas->m_oImageArray[19] = Image::createImage("/315.png");
+    m_oCanvas->m_oImageArray[20] = Image::createImage("/316.png");
+    m_oCanvas->m_oImageArray[21] = Image::createImage("/317.png");
+    m_oCanvas->m_oImageArray[22] = Image::createImage("/318.png");
 
-      m_oCanvas->m_oImageArray[5] = Image::createImage("/6.png");
-    } else {
-      m_oCanvas->m_oImageArray[2] = Image::createImage(0, 0); // nullptr;
-      m_oCanvas->m_oImageArray[5] = Image::createImage(0, 0); // nullptr;
-    }
-  } catch (const std::runtime_error& th) {
+    m_oCanvas->m_oImageArray[5] = Image::createImage("/6.png");
+  } else {
+    m_oCanvas->m_oImageArray[2] = Image::createImage(0, 0); // nullptr;
+    m_oCanvas->m_oImageArray[5] = Image::createImage(0, 0); // nullptr;
   }
 }
 
